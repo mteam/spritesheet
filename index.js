@@ -1,14 +1,18 @@
 var Snippet = require('snippet'),
     Grid = require('grid');
 
-function Spritesheet(image, cols, rows) {
-  var width = image.width / cols;
-  var height = image.height / rows;
-  var sprites = this.sprites = [];
+function Spritesheet(image, opts) {
+  opts.width = opts.width || image.width / opts.cols;
+  opts.height = opts.height || image.height / opts.rows;
+  opts.cols = opts.cols || image.width / opts.width;
+  opts.rows = opts.rows || image.height / opts.height;
 
-  this.grid = new Grid(cols, rows, width, height);
+  this.sprites = [];
+  this.grid = new Grid(opts.cols, opts.rows, opts.width, opts.height);
+
+  var sprites = this.sprites;
   this.grid.iterate(function(x, y) {
-    var snippet = new Snippet(image, x, y, width, height);
+    var snippet = new Snippet(image, x, y, opts.width, opts.height);
     sprites.push(snippet);
   });
 }
