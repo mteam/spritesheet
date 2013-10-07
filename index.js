@@ -1,9 +1,9 @@
 var Snippet = require('snippet'),
     Grid = require('grid');
 
-function Spritesheet(image, width, height) {
-  var cols = Math.floor(image.width / width);
-  var rows = Math.floor(image.height / height);
+function Spritesheet(image, cols, rows) {
+  var width = image.width / cols;
+  var height = image.height / rows;
   var sprites = this.sprites = [];
 
   this.grid = new Grid(cols, rows, width, height);
